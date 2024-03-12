@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Foram.Api", "Foram.Api\Foram.Api.csproj", "{859C7FA8-68A4-433F-B7F5-EDEAE9208BDA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{859C7FA8-68A4-433F-B7F5-EDEAE9208BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{859C7FA8-68A4-433F-B7F5-EDEAE9208BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{859C7FA8-68A4-433F-B7F5-EDEAE9208BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{859C7FA8-68A4-433F-B7F5-EDEAE9208BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86732178-0757-4429-A49F-8CB2D4264E1C}
+	EndGlobalSection
+EndGlobal
