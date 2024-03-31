@@ -18,4 +18,4 @@ namespace Foram.Api.Controllers
        public ActionResult<string> Get() =>
             Ok("Hello Mario the princess is in another Castle");
     }
-}
+}     

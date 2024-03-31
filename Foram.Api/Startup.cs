@@ -3,6 +3,7 @@
 //Free to Use Comfort and Peace
 //= = = = = = = = = = = = = = = = = = = = = = = = = = 
 
+using Foram.Api.Brokers.Strorages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +28,8 @@ namespace Foram.Api
                 Title = "Foram.Api",
                 Version = "V1"
             };
+
+            services.AddDbContext<StorageBrokers>();
             services.AddControllers();
 
             services.AddSwaggerGen(options=>
