@@ -5,15 +5,41 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ADotNet" Version="3.0.2" />
+    <PackageReference Include="LocalDb" Version="17.0.0" />
+    <PackageReference Include="Npgsql" Version="8.0.2" />
+    <PackageReference Include="PostgreSql.Binaries.Lite" Version="10.7.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="RESTFulSense" Version="2.17.0" />
+    <PackageReference Include="EFxceptions" Version="0.4.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.28" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="NuGet.Commands" Version="6.0.2" />
+    <PackageReference Include="Microsoft.SqlServer.Server" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Controllers\" />
+    <None Remove="Models\" />
+    <None Remove="Models\Foundations\" />
+    <None Remove="Models\Foundations\Guests\" />
+    <None Remove="Brokers\" />
+    <None Remove="Brokers\Strorages\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
+    <Folder Include="Models\" />
+    <Folder Include="Models\Foundations\" />
+    <Folder Include="Models\Foundations\Guests\" />
+    <Folder Include="Brokers\" />
+    <Folder Include="Brokers\Strorages\" />
   </ItemGroup>
 </Project>
