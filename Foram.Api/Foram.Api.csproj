@@ -33,7 +33,5 @@
     <Folder Include="Models\" />
     <Folder Include="Models\Foundations\" />
     <Folder Include="Models\Foundations\Guests\" />
-    <Folder Include="Brokers\" />
-    <Folder Include="Brokers\Strorages\" />
   </ItemGroup>
 </Project>

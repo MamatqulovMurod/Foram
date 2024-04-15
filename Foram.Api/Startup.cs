@@ -29,8 +29,9 @@ namespace Foram.Api
                 Version = "V1"
             };
 
-            services.AddDbContext<StorageBrokers>();
+            services.AddDbContext<StorageBroker>();
             services.AddControllers();
+            services.AddTransient<IStorageBroker, StorageBroker>();
 
             services.AddSwaggerGen(options=>
             {
