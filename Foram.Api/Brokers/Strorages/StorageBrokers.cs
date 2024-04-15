@@ -5,22 +5,35 @@
 
 
 using System;
+using System.Threading.Tasks;
 using EFxceptions;
+using Foram.Api.Models.Foundations.Guests;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Foram.Api.Brokers.Strorages
 {
-	public partial class StorageBrokers : EFxceptionsContext
+	public partial class StorageBroker : EFxceptionsContext, IStorageBroker
 	{
 		private readonly IConfiguration configuration;
 
-		public StorageBrokers(IConfiguration configuration)
+		public StorageBroker(IConfiguration configuration)
 		{
 			this.configuration = configuration;
-			this.Database.Migrate();
-		}	
 
+			this.Database.Migrate();
+
+		}	
+		
+		//private async ValueTask<T> InsertAsync<T>(T @object) where T: class
+		//{
+		//	using var broker = new StorageBroker(this.configuration);
+
+		//	broker.Entry<T>(@object).State = EntityState.Added;
+
+		//	await broker.SaveChangesAsync();
+		//	return @object;
+		//}
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			string connectionString =
@@ -30,9 +43,8 @@ namespace Foram.Api.Brokers.Strorages
 		}
 
         public override void Dispose() { }
-        
-        
 
+        
     }
 }
 
