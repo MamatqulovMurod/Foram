@@ -1,6 +1,6 @@
 ﻿//= = = = = = = = = = = = = = = = = = = = = = = = = = 
 //Copyright (c) Coalition of Good-Hearted Engiineers
-//Free to Use Comfort and Peace
+//Free to Use To Find Comfort and Peace
 //= = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 using Foram.Api.Brokers.Strorages;
