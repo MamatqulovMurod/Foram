@@ -3,6 +3,7 @@
 //Free to Use To Find Comfort and Peace
 //= = = = = = = = = = = = = = = = = = = = = = = = = = 
 
+using Foram.Api.Brokers.Logging;
 using Foram.Api.Brokers.Strorages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,9 +32,10 @@ namespace Foram.Api
 
             services.AddDbContext<StorageBroker>();
             services.AddControllers();
-            services.AddTransient<IStorageBroker, StorageBroker>();
+            AddBrokers(services);
 
-            services.AddSwaggerGen(options=>
+
+            services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc(
                     name: "v1",
@@ -41,6 +43,7 @@ namespace Foram.Api
             });
         }
 
+       
         public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
         {
             if (environment.IsDevelopment())
@@ -65,6 +68,13 @@ namespace Foram.Api
                 endpoints.MapControllers());
             
         }
+
+        private static void AddBrokers(IServiceCollection services)
+        {
+            services.AddTransient<IStorageBroker, StorageBroker>();
+            services.AddTransient<ILoggingBroker, ILoggingBroker>();
+        }
     }
+
 }
 
