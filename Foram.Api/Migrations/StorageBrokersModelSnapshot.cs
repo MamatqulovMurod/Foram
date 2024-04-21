@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Foram.Api.Migrations
 {
-    [DbContext(typeof(StorageBrokers))]
+    [DbContext(typeof(StorageBroker))]
     partial class StorageBrokersModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

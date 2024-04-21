@@ -4,16 +4,13 @@
 //= = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 
-using System;
-using System.Threading.Tasks;
 using EFxceptions;
-using Foram.Api.Models.Foundations.Guests;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 namespace Foram.Api.Brokers.Strorages
 {
-	public partial class StorageBroker : EFxceptionsContext, IStorageBroker
+    public partial class StorageBroker : EFxceptionsContext, IStorageBroker
 	{
 		private readonly IConfiguration configuration;
 

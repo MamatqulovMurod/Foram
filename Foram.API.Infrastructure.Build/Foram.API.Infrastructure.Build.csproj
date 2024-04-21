@@ -27,8 +27,14 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.SqlServer.Server" Version="1.0.0" />
-    <PackageReference Include="NuGet.Commands" Version="6.0.2" />
+    <PackageReference Include="Moq" Version="4.20.70" />
+    <PackageReference Include="NuGet.Commands" Version="6.9.1" />
     <PackageReference Include="PDF.NET.SOD.PostgreSQL.Provider" Version="7.0.0-beta2" />
     <PackageReference Include="RESTFulSense" Version="2.18.0" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Foram.Api\Foram.Api.csproj" />
   </ItemGroup>
 </Project>

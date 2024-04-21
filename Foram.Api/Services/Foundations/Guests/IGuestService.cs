@@ -1,14 +1,15 @@
 ﻿//= = = = = = = = = = = = = = = = = = = = = = = = = = 
 //Copyright (c) Coalition of Good-Hearted Engiineers
-//Free To Use To Find Comfort and Peace
+//Free to Use To Find Comfort and Peace
 //= = = = = = = = = = = = = = = = = = = = = = = = = = 
+
 using Foram.Api.Models.Foundations.Guests;
 using System.Threading.Tasks;
 
-namespace Foram.Api.Brokers.Strorages
+namespace Foram.Api.Services.Foundations.Guests
 {
-    public partial interface IStorageBroker
+    public interface IGuestService
     {
-        ValueTask<Guest> InsertGuestAsync(Guest guest);
+        ValueTask<Guest> AddGuestAsync(Guest guest);
     }
 }
