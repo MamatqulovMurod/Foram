@@ -2,15 +2,13 @@
 using Foram.Api.Brokers.Strorages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Foram.Api.Migrations
 {
-    [DbContext(typeof(StorageBrokers))]
+    [DbContext(typeof(StorageBroker))]
     [Migration("20240415105100_InitialCresteAllTsbles")]
     partial class InitialCresteAllTsbles
     {

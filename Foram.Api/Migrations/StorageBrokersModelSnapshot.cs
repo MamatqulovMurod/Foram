@@ -7,14 +7,12 @@
 using Foram.Api.Brokers.Strorages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Foram.Api.Migrations
 {
-    [DbContext(typeof(StorageBrokers))]
+    [DbContext(typeof(StorageBroker))]
     partial class StorageBrokersModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

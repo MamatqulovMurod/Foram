@@ -13,9 +13,9 @@ namespace Foram.Api.Controllers
     [Route("api/[controller]")]
     public class HomeController : RESTFulController
     {
-       [HttpGet]
+        [HttpGet]
 
-       public ActionResult<string> Get() =>
-            Ok("Hello Mario the princess is in another Castle");
+        public ActionResult<string> Get() =>
+             Ok("Hello Mario the princess is in another Castle");
     }
-}     
+}
