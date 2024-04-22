@@ -7,6 +7,7 @@
 
 using FluentAssertions;
 using Foram.Api.Models.Foundations.Guests;
+using Force.DeepCloner;
 using Moq;
 using Xunit;
 
@@ -24,7 +25,7 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
             Guest randomGuest = CreateRandomGuest();
             Guest inputGuest = randomGuest;
             Guest returningGuest = inputGuest;
-            Guest expectedGuest = returningGuest;
+            Guest expectedGuest = returningGuest.DeepClone();
 
             this.storageBrokerMock.Setup(broker =>
             broker.InsertGuestAsync(inputGuest))
