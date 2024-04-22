@@ -3,12 +3,14 @@
 // Free To Use To Find Comfort And Peace
 //==================================================
 
+using System.Linq.Expressions;
 using Foram.Api.Brokers.Logging;
 using Foram.Api.Brokers.Strorages;
 using Foram.Api.Models.Foundations.Guests;
 using Foram.Api.Services.Foundations.Guests;
 using Moq;
 using Tynamix.ObjectFiller;
+using Xeptions;
 
 namespace Foram.API.Tests.Unit.Services.Foundations.Guests
 {
@@ -34,6 +36,14 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
 
         private static DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();
+
+        private  Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException)
+        {
+            return actualException =>
+            actualException.Message == expectedException.Message
+            && actualException.InnerException.Message  == expectedException.InnerException.Message
+            && (actualException.InnerException as Xeption).DataEquals(expectedException.InnerException.Data);
+        }
 
         private static Filler<Guest> CreateGuestFiller(DateTimeOffset date)
         {
