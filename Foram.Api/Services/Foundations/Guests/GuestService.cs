@@ -3,12 +3,11 @@
 //Free to Use To Find Comfort and Peace
 //= = = = = = = = = = = = = = = = = = = = = = = = = = 
 
+using System;
+using System.Threading.Tasks;
 using Foram.Api.Brokers.Logging;
 using Foram.Api.Brokers.Strorages;
 using Foram.Api.Models.Foundations.Guests;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System;
-using System.Threading.Tasks;
 
 namespace Foram.Api.Services.Foundations.Guests
 {
@@ -30,11 +29,9 @@ namespace Foram.Api.Services.Foundations.Guests
         }
 
 
-        public async ValueTask<Guest> AddGuestAsync(Guest guest)
-        {
-            this.loggingBroker.LogError(new Exception("somothing"));
-
-            return await this.storageBroker.InsertGuestAsync(guest);
-        }
+        public async ValueTask<Guest> AddGuestAsync(Guest guest)=>
+        
+             await this.storageBroker.InsertGuestAsync(guest);
+        
     }
 }

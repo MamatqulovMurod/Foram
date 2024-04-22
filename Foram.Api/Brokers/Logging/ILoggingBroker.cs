@@ -18,6 +18,6 @@ namespace Foram.Api.Brokers.Logging
         void LogInformation(Exception exception);
 
         void LogDebug(Exception exception);
-    
+
     }
 }

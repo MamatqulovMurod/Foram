@@ -7,11 +7,11 @@ using Xeptions;
 
 namespace Foram.Api.Models.Foundations.Guests.Exceptions
 {
-    public class GuestValidationException: Xeption
+    public class GuestValidationException : Xeption
     {
         public GuestValidationException(Xeption innerException)
             : base(message: "Guest Validation occured fix the error and try again",
                   innerException)
-        {}
+        { }
     }
 }

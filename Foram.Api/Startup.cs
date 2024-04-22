@@ -18,7 +18,7 @@ namespace Foram.Api
     {
         public Startup(IConfiguration configuration) =>
              Configuration = configuration;
-        
+
 
         public IConfiguration Configuration { get; }
 
@@ -43,7 +43,7 @@ namespace Foram.Api
             });
         }
 
-       
+
         public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
         {
             if (environment.IsDevelopment())
@@ -66,7 +66,7 @@ namespace Foram.Api
 
             app.UseEndpoints(endpoints =>
                 endpoints.MapControllers());
-            
+
         }
 
         private static void AddBrokers(IServiceCollection services)
