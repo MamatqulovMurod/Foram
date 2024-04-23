@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Foram.Api.Brokers.Logging;
 using Foram.Api.Brokers.Strorages;
 using Foram.Api.Models.Foundations.Guests;
+using Foram.Api.Models.Foundations.Guests.Exceptions;
 
 namespace Foram.Api.Services.Foundations.Guests
 {
@@ -29,10 +30,28 @@ namespace Foram.Api.Services.Foundations.Guests
         }
 
 
-        public async ValueTask<Guest> AddGuestAsync(Guest guest)=>
-              await this.storageBroker.InsertGuestAsync(guest);
-            
-           
+        public async ValueTask<Guest> AddGuestAsync(Guest guest)
+        {
+            try
+            {
+                if (guest is null)
+                {
+                    throw new NullGuestException();
+                }
+                return await this.storageBroker.InsertGuestAsync(guest);
+
+            }
+            catch (NullGuestException nullGuestExection)
+            {
+                var guestValidationException =
+                    new GuestValidationException(nullGuestExection);
+
+                this.loggingBroker.LogError(guestValidationException);
+
+                throw (guestValidationException);
+            }
+
+        }  
         
     }
 }
