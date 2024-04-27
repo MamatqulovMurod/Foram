@@ -26,8 +26,12 @@ namespace Foram.Api.Services.Foundations.Guests
 
                 throw CreateAndLogValidationException(nullGuestExection);
             }
-
+            catch(InvalidGuestException invalidGuestException)
+            {
+                throw CreateAndLogValidationException(invalidGuestException);
+            }
         }
+
         private GuestValidationException CreateAndLogValidationException(Xeption exception)
         {
             var guestValidationException =
@@ -37,5 +41,8 @@ namespace Foram.Api.Services.Foundations.Guests
 
             return guestValidationException;
         }
+
+
+
     }
 }

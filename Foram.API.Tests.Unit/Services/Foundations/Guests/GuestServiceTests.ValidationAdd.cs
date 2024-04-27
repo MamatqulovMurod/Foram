@@ -3,7 +3,6 @@
 // Free To Use To Find Comfort And Peace
 //==================================================
 
-
 using Foram.Api.Models.Foundations.Guests;
 using Foram.Api.Models.Foundations.Guests.Exceptions;
 using Moq;
@@ -14,7 +13,7 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
     public partial class GuestServiceTests
     {
         [Fact]
-        public async Task SfouldThrowValidationExeptionOnAddIfGustIsNullAndLogitAysnc()
+        public async Task ShouldThrowValidationExceptionOnAddIfGustIsNullAndLogItAsync()
         {
             //given
             Guest nullGuest = null;
@@ -44,19 +43,18 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
 
         [Theory]
         [InlineData(null)]
-        [InlineData ("")]
-        [InlineData ("")]
+        [InlineData("")]
+        [InlineData(" ")]
 
-        public async Task ShouldThrowValidationExceptionOnAddIfGuestInvalidAndLogItAsync(
-            string invslidText)
-
-        {
+        public async Task ShouldThrowValidationExceptionOnAddIfGuestIsInvalidAndLogItAsync(
+            string invalidText)
+        { 
             //given
             var invalidGuest = new Guest
             {
-                FirstName = invslidText
+                FirstName = invalidText
             };
-
+            
             var invalidGuestException = new InvalidGuestException();
 
             invalidGuestException.AddData(
