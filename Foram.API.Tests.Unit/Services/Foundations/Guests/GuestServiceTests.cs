@@ -37,6 +37,23 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
         private static DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();
 
+
+        private static int GetRandomNumber() =>
+            new IntRange(min: 2, max: 9).GetValue();
+
+
+        private static T GetInvalidEnum<T>()
+        {
+            int randomNumer = GetRandomNumber();
+
+            while(Enum.IsDefined(typeof (T), randomNumer)is true)
+            {
+                randomNumer = GetRandomNumber();
+            }
+
+            return (T)(object)randomNumer;
+        }
+
         private  Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException)
         {
             return actualException =>
