@@ -4,10 +4,12 @@
 //==================================================
 
 using System.Linq.Expressions;
+using System.Runtime.Serialization;
 using Foram.Api.Brokers.Logging;
 using Foram.Api.Brokers.Strorages;
 using Foram.Api.Models.Foundations.Guests;
 using Foram.Api.Services.Foundations.Guests;
+using Microsoft.Data.SqlClient;
 using Moq;
 using Tynamix.ObjectFiller;
 using Xeptions;
@@ -45,6 +47,9 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 9).GetValue();
 
+
+        private static SqlException GetSqlError() =>
+            (SqlException)FormatterServices.GetSafeUninitializedObject(typeof(SqlException));
 
 
         private static T GetInvalidEnum<T>()
