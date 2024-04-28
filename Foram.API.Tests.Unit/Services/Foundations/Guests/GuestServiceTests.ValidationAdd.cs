@@ -16,14 +16,15 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
         public async Task ShouldThrowValidationExceptionOnAddIfGustIsNullAndLogItAsync()
         {
             //given
-            Guest nullGuest = null;
+            Guest NullGuest = null;
             var nullGuestException = new NullGuestException();
+
             var expectedGuestValidationException =
                 new GuestValidationException(nullGuestException);
 
             //when
             ValueTask<Guest> addGuestTask =
-                this.guestService.AddGuestAsync(nullGuest);
+                this.guestService.AddGuestAsync(NullGuest);
 
             //then
             await Assert.ThrowsAsync<GuestValidationException>(() =>
@@ -47,7 +48,7 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
         [InlineData(" ")]
 
         public async Task ShouldThrowValidationExceptionOnAddIfGuestIsInvalidAndLogItAsync(
-            string invalidText)
+             string invalidText)
         { 
             //given
             var invalidGuest = new Guest

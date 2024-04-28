@@ -20,6 +20,7 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
         private readonly Mock<ILoggingBroker> loggingBrokerMock;
         private readonly IGuestService guestService;
 
+
         public GuestServiceTests()
         {
             this.storageBrokerMock = new Mock<IStorageBroker>();
@@ -31,20 +32,24 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
                     loggingBroker: this.loggingBrokerMock.Object);
         }
 
+
         private static Guest CreateRandomGuest() =>
             CreateGuestFiller(date: GetRandomDateTimeOffset()).Create();
 
+
         private static DateTimeOffset GetRandomDateTimeOffset() =>
             new DateTimeRange(earliestDate: new DateTime()).GetValue();
+
 
 
         private static int GetRandomNumber() =>
             new IntRange(min: 2, max: 9).GetValue();
 
 
+
         private static T GetInvalidEnum<T>()
         {
-            int randomNumer = GetRandomNumber();
+             int randomNumer = GetRandomNumber();
 
             while(Enum.IsDefined(typeof (T), randomNumer)is true)
             {
@@ -54,13 +59,10 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
             return (T)(object)randomNumer;
         }
 
-        private  Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException)
-        {
-            return actualException =>
-            actualException.Message == expectedException.Message
-            && actualException.InnerException.Message  == expectedException.InnerException.Message
-            && (actualException.InnerException as Xeption).DataEquals(expectedException.InnerException.Data);
-        }
+
+        private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
+            actualException => actualException.SameExceptionAs(expectedException);
+        
 
         private static Filler<Guest> CreateGuestFiller(DateTimeOffset date)
         {

@@ -22,8 +22,8 @@ namespace Foram.Api.Services.Foundations.Guests
                 (Rule: IsInvalid(guest.LastName), Parameter: nameof(Guest.LastName)),
                 (Rule: IsInvalid(guest.DateOfBirth), Parameter: nameof(Guest.DateOfBirth)),
                 (Rule: IsInvalid(guest.Email), Parameter: nameof(Guest.Email)),
-                (Rule: IsInvalid(guest.Address), Parameter: nameof(Guest.Address)));
-                 
+                (Rule: IsInvalid(guest.Address), Parameter: nameof(Guest.Address)),
+                (Rule: IsInvalid(guest.Gender), Parameter: nameof(Guest.Gender)));
         }
         private void ValidateGuestNotNull(Guest guest)
         {
@@ -51,6 +51,13 @@ namespace Foram.Api.Services.Foundations.Guests
         {
             Condition = data == default,
             Message = "Data is required"
+        };
+
+        private static dynamic IsInvalid(GenderType gender) => new
+        {
+            Condition = Enum.IsDefined(typeof(GenderType), gender) is false,
+            Message = "Value is invalid"
+
         };
 
         private static void Validate(params(dynamic Rule, string Parameter)[] validations)
