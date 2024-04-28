@@ -17,7 +17,6 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
     { 
 
         [Fact]
-
         public async Task ShouldAddGuestAsync()
         {
             //given

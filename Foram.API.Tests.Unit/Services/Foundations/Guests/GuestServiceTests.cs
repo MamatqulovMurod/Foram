@@ -48,6 +48,10 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
             new IntRange(min: 2, max: 9).GetValue();
 
 
+        private static string GetRandomString() =>
+            new MnemonicString().GetValue();
+
+
         private static SqlException GetSqlError() =>
             (SqlException)FormatterServices.GetSafeUninitializedObject(typeof(SqlException));
 
