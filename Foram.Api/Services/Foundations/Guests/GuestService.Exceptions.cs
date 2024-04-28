@@ -3,7 +3,9 @@
 //Free to Use To Find Comfort and Peace
 //= = = = = = = = = = = = = = = = = = = = = = = = = = 
 
+using System;
 using System.Threading.Tasks;
+using EFxceptions.Models.Exceptions;
 using Foram.Api.Models.Foundations.Guests;
 using Foram.Api.Models.Foundations.Guests.Exceptions;
 using Microsoft.Data.SqlClient;
@@ -38,6 +40,13 @@ namespace Foram.Api.Services.Foundations.Guests
 
                 throw CreateAndLogCriticalDependencyException(failedGuestSrorageException);
             }
+            catch(DuplicateKeyException duplicateKeyException)
+            {
+                var alreadyExistGuestException =
+                    new AlreadyExistGuestException(duplicateKeyException);
+
+                throw CreateAndLogDependencyValidationException(alreadyExistGuestException);
+            }
         }
 
         private GuestValidationException CreateAndLogValidationException(Xeption exception)
@@ -56,6 +65,17 @@ namespace Foram.Api.Services.Foundations.Guests
             this.loggingBroker.LogCritical(guestDependencyExceptoin);
 
             return guestDependencyExceptoin;
+        }
+
+        private GuestDependencyValidationException CreateAndLogDependencyValidationException(
+            Xeption exception)
+        {
+            var guestDependencyValidationException =
+                new GuestDependencyValidationException(exception);
+
+            this.loggingBroker.LogError(guestDependencyValidationException);
+
+            return guestDependencyValidationException;
         }
 
     }
