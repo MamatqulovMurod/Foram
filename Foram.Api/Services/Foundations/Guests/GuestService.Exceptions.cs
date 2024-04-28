@@ -6,6 +6,8 @@
 using System.Threading.Tasks;
 using Foram.Api.Models.Foundations.Guests;
 using Foram.Api.Models.Foundations.Guests.Exceptions;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Xeptions;
 
 namespace Foram.Api.Services.Foundations.Guests
@@ -30,6 +32,12 @@ namespace Foram.Api.Services.Foundations.Guests
             {
                 throw CreateAndLogValidationException(invalidGuestException);
             }
+            catch(SqlException sqlException)
+            {
+                var failedGuestSrorageException = new FailedGuestStorageExceptioin(sqlException);
+
+                throw CreateAndLogCriticalDependencyException(failedGuestSrorageException);
+            }
         }
 
         private GuestValidationException CreateAndLogValidationException(Xeption exception)
@@ -42,7 +50,13 @@ namespace Foram.Api.Services.Foundations.Guests
             return guestValidationException;
         }
 
+        private GuestDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
+        {
+            var guestDependencyExceptoin = new GuestDependencyException(exception);
+            this.loggingBroker.LogCritical(guestDependencyExceptoin);
 
+            return guestDependencyExceptoin;
+        }
 
     }
 }
