@@ -13,11 +13,11 @@ namespace Foram.Api.Brokers.Logging
 
         void LogCritical(Exception exception);
 
-        void LogWarning(Exception exception);
+        //void LogWarning(Exception exception);
 
-        void LogInformation(Exception exception);
+        //void LogInformation(Exception exception);
 
-        void LogDebug(Exception exception);
+        //void LogDebug(Exception exception);
 
     }
 }

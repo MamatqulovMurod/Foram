@@ -49,13 +49,13 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
 
         public async Task ShouldThrowValidationExceptionOnAddIfGuestIsInvalidAndLogItAsync(
              string invalidText)
-        { 
+        {
             //given
             var invalidGuest = new Guest
             {
                 FirstName = invalidText
             };
-            
+
             var invalidGuestException = new InvalidGuestException();
 
             invalidGuestException.AddData(

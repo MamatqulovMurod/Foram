@@ -8,10 +8,10 @@ using Xeptions;
 
 namespace Foram.Api.Models.Foundations.Guests.Exceptions
 {
-    public class FailedGuestServiceException: Xeption 
+    public class FailedGuestServiceException : Xeption
     {
         public FailedGuestServiceException(Exception innerException)
-            :base(message:"Failed guest service error occured, contanct support",
+            : base(message: "Failed guest service error occured, contanct support",
                  innerException)
         { }
     }

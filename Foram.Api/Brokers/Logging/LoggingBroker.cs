@@ -22,13 +22,13 @@ namespace Foram.Api.Brokers.Logging
         public void LogCritical(Exception exception) =>
             this.logger.LogCritical(exception, exception.Message);
 
-        public void LogWarning(Exception exception) =>
-            this.logger.LogWarning(exception, exception.Message);
+        //public void LogWarning(Exception exception) =>
+        //    this.logger.LogWarning(exception, exception.Message);
 
-        public void LogInformation(Exception exception) =>
-            this.logger.LogInformation(exception, exception.Message);
+        //public void LogInformation(Exception exception) =>
+        //    this.logger.LogInformation(exception, exception.Message);
 
-        public void LogDebug(Exception exception) =>
-            this.logger.LogDebug(exception, exception.Message);
+        //public void LogDebug(Exception exception) =>
+        //    this.logger.LogDebug(exception, exception.Message);
     }
 }

@@ -9,7 +9,6 @@ using EFxceptions.Models.Exceptions;
 using Foram.Api.Models.Foundations.Guests;
 using Foram.Api.Models.Foundations.Guests.Exceptions;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Xeptions;
 
 namespace Foram.Api.Services.Foundations.Guests
@@ -30,24 +29,24 @@ namespace Foram.Api.Services.Foundations.Guests
 
                 throw CreateAndLogValidationException(nullGuestExection);
             }
-            catch(InvalidGuestException invalidGuestException)
+            catch (InvalidGuestException invalidGuestException)
             {
                 throw CreateAndLogValidationException(invalidGuestException);
             }
-            catch(SqlException sqlException)
+            catch (SqlException sqlException)
             {
                 var failedGuestSrorageException = new FailedGuestStorageExceptioin(sqlException);
 
                 throw CreateAndLogCriticalDependencyException(failedGuestSrorageException);
             }
-            catch(DuplicateKeyException duplicateKeyException)
+            catch (DuplicateKeyException duplicateKeyException)
             {
                 var alreadyExistGuestException =
                     new AlreadyExistGuestException(duplicateKeyException);
 
                 throw CreateAndLogDependencyValidationException(alreadyExistGuestException);
             }
-            catch(Exception exception)
+            catch (Exception exception)
             {
                 var failedGuestServiceException =
                     new FailedGuestStorageExceptioin(exception);

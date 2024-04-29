@@ -5,6 +5,7 @@
 
 using Foram.Api.Brokers.Logging;
 using Foram.Api.Brokers.Strorages;
+using Foram.Api.Services.Foundations.Guests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -33,7 +34,7 @@ namespace Foram.Api
             services.AddDbContext<StorageBroker>();
             services.AddControllers();
             AddBrokers(services);
-
+            AddFoundationServices(services);
 
             services.AddSwaggerGen(options =>
             {
@@ -72,7 +73,12 @@ namespace Foram.Api
         private static void AddBrokers(IServiceCollection services)
         {
             services.AddTransient<IStorageBroker, StorageBroker>();
-            services.AddTransient<ILoggingBroker, ILoggingBroker>();
+            services.AddTransient<ILoggingBroker, LoggingBroker>();
+        }
+
+        private static void AddFoundationServices(IServiceCollection services)
+        {
+            services.AddTransient<IGuestService, GuestService>();
         }
     }
 
