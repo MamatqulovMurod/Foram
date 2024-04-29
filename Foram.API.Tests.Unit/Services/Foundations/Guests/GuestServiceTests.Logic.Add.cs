@@ -14,11 +14,9 @@ using Xunit;
 namespace Foram.API.Tests.Unit.Services.Foundations.Guests
 {
     public partial class GuestServiceTests
-    {
-
+    { 
 
         [Fact]
-
         public async Task ShouldAddGuestAsync()
         {
             //given
@@ -45,6 +43,7 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
                 Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
 
         }
     }

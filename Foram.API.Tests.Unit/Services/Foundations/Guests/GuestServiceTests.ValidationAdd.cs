@@ -1,39 +1,151 @@
-﻿////==================================================
-//// Copyright (c) Coalition Of Good-Hearted Engineers
-//// Free To Use To Find Comfort And Peace
-////==================================================
+﻿//==================================================
+// Copyright (c) Coalition Of Good-Hearted Engineers
+// Free To Use To Find Comfort And Peace
+//==================================================
+
+using Foram.Api.Models.Foundations.Guests;
+using Foram.Api.Models.Foundations.Guests.Exceptions;
+using Moq;
+using Xunit;
+
+namespace Foram.API.Tests.Unit.Services.Foundations.Guests
+{
+    public partial class GuestServiceTests
+    {
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnAddIfGustIsNullAndLogItAsync()
+        {
+            //given
+            Guest NullGuest = null;
+            var nullGuestException = new NullGuestException();
+
+            var expectedGuestValidationException =
+                new GuestValidationException(nullGuestException);
+
+            //when
+            ValueTask<Guest> addGuestTask =
+                this.guestService.AddGuestAsync(NullGuest);
+
+            //then
+            await Assert.ThrowsAsync<GuestValidationException>(() =>
+            addGuestTask.AsTask());
+
+            this.loggingBrokerMock.Verify(broker =>
+            broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException))),
+            Times.Once);
+
+            this.storageBrokerMock.Verify(broker =>
+            broker.InsertGuestAsync(It.IsAny<Guest>()),
+            Times.Never);
+
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+
+        public async Task ShouldThrowValidationExceptionOnAddIfGuestIsInvalidAndLogItAsync(
+             string invalidText)
+        { 
+            //given
+            var invalidGuest = new Guest
+            {
+                FirstName = invalidText
+            };
+            
+            var invalidGuestException = new InvalidGuestException();
+
+            invalidGuestException.AddData(
+                key: nameof(Guest.Id),
+                values: "Id is required");
 
 
-//using Foram.Api.Models.Foundations.Guests;
-//using Foram.Api.Models.Foundations.Guests.Exceptions;
-//using Moq;
-//using Xunit;
+            invalidGuestException.AddData(
+                key: nameof(Guest.FirstName),
+                 values: "Text is required");
 
-//namespace Foram.API.Tests.Unit.Services.Foundations.Guests
-//{
-//    public partial class GuestServiceTests
-//    {
-//        [Fact]
-//        public async Task SfouldThrowValidationExeptionOnAddIfGustIsNullAndLogitAysnc()
-//        {
-//            //given
-//            Guest nullGuest = null;
-//            var nullGuestException = new NullGuestException();
-//            var expectedGuestGuestValidationException =
-//                new GuestValidationException(nullGuestException);
 
-//            //when
-//            ValueTask<Guest> addGuestTask =
-//                this.guestService.AddGuestAsync(nullGuest);
+            invalidGuestException.AddData(
+                key: nameof(Guest.LastName),
+                values: "Text is required");
 
-//            //then
-//            await Assert.ThrowsAsync<GuestValidationException>(() =>
-//            addGuestTask.AsTask());
 
-//            this.loggingBrokerMock.Verify(broker =>
-//            broker.LogError(It.Is(SameExceptionAs(expectedGuestGuestValidationException))),
-//            Times.Once);
+            invalidGuestException.AddData(
+                key: nameof(Guest.DateOfBirth),
+                values: "Date is required");
 
-//        }
-//    }
-//}
+            invalidGuestException.AddData(
+                key: nameof(Guest.Email),
+                values: "Text is required");
+
+            invalidGuestException.AddData(
+                key: nameof(Guest.Address),
+                values: "Text is required");
+
+            var expectedGuestValidationException =
+                new GuestValidationException(invalidGuestException);
+
+            //when 
+            ValueTask<Guest> addGuestTask =
+                this.guestService.AddGuestAsync(invalidGuest);
+
+            //then
+            await Assert.ThrowsAsync<GuestValidationException>(() =>
+            addGuestTask.AsTask());
+
+            this.loggingBrokerMock.Verify(broker =>
+            broker.LogError(It.Is(SameExceptionAs(
+                expectedGuestValidationException))),
+                Times.Once);
+
+            this.storageBrokerMock.Verify(broker =>
+               broker.InsertGuestAsync(It.IsAny<Guest>()),
+               Times.Never);
+
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
+        }
+
+
+        [Fact]
+        public async Task ShouldThrowValidationExceptionOnAddIfGenderIsInvalidAndLogItAsync()
+        {
+            //given
+            Guest randomGuest = CreateRandomGuest();
+            Guest invalidGuest = randomGuest;
+            invalidGuest.Gender = GetInvalidEnum<GenderType>();
+            var invalidGuestException = new InvalidGuestException();
+
+
+            invalidGuestException.AddData(
+                key: nameof(Guest.Gender),
+                values: "Value is invalid");
+
+            var expectedGuestValidationException =
+                new GuestValidationException(invalidGuestException);
+
+            //when 
+            ValueTask<Guest> adddGuestTask =
+                this.guestService.AddGuestAsync(invalidGuest);
+
+            //then
+            await Assert.ThrowsAsync<GuestValidationException>(() =>
+            adddGuestTask.AsTask());
+
+            this.loggingBrokerMock.Verify(broker =>
+            broker.LogError(It.Is(SameExceptionAs(
+                expectedGuestValidationException))),
+                Times.Once);
+
+            this.storageBrokerMock.Verify(broker =>
+            broker.InsertGuestAsync(It.IsAny<Guest>()),
+            Times.Never);
+
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+            this.storageBrokerMock.VerifyNoOtherCalls();
+        }
+    }
+}

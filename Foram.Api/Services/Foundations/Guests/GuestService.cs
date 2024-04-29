@@ -3,7 +3,6 @@
 //Free to Use To Find Comfort and Peace
 //= = = = = = = = = = = = = = = = = = = = = = = = = = 
 
-using System;
 using System.Threading.Tasks;
 using Foram.Api.Brokers.Logging;
 using Foram.Api.Brokers.Strorages;
@@ -11,7 +10,7 @@ using Foram.Api.Models.Foundations.Guests;
 
 namespace Foram.Api.Services.Foundations.Guests
 {
-    public class GuestService : IGuestService
+    public partial class GuestService : IGuestService
     {
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
@@ -28,11 +27,15 @@ namespace Foram.Api.Services.Foundations.Guests
             this.loggingBroker = loggingBroker;
         }
 
+        //Exception Noice Cancellation
+        public  ValueTask<Guest> AddGuestAsync(Guest guest) =>
+        TryCatch(async() =>
+        {
+         ValidateGuestOnAdd(guest);
 
-        public async ValueTask<Guest> AddGuestAsync(Guest guest)=>
-              await this.storageBroker.InsertGuestAsync(guest);
-            
-           
+         return await this.storageBroker.InsertGuestAsync(guest);
+
+        });
         
     }
 }
