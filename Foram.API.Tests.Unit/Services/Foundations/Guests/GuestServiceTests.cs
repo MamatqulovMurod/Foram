@@ -58,9 +58,9 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
 
         private static T GetInvalidEnum<T>()
         {
-             int randomNumer = GetRandomNumber();
+            int randomNumer = GetRandomNumber();
 
-            while(Enum.IsDefined(typeof (T), randomNumer)is true)
+            while (Enum.IsDefined(typeof(T), randomNumer) is true)
             {
                 randomNumer = GetRandomNumber();
             }
@@ -69,9 +69,9 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
         }
 
 
-        private Expression<Func<Xeption,bool>> SameExceptionAs(Xeption expectedException) =>
+        private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
             actualException => actualException.SameExceptionAs(expectedException);
-        
+
 
         private static Filler<Guest> CreateGuestFiller(DateTimeOffset date)
         {

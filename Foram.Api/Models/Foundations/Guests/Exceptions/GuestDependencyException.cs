@@ -7,7 +7,7 @@ using Xeptions;
 
 namespace Foram.Api.Models.Foundations.Guests.Exceptions
 {
-    public class GuestDependencyException: Xeption
+    public class GuestDependencyException : Xeption
     {
         public GuestDependencyException(Xeption innerException)
             : base(message: "Guest dependancy error occured, contact support",

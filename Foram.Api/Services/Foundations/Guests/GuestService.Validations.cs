@@ -4,7 +4,6 @@
 //= = = = = = = = = = = = = = = = = = = = = = = = = = 
 
 using System;
-using System.Data;
 using Foram.Api.Models.Foundations.Guests;
 using Foram.Api.Models.Foundations.Guests.Exceptions;
 
@@ -27,7 +26,7 @@ namespace Foram.Api.Services.Foundations.Guests
         }
         private void ValidateGuestNotNull(Guest guest)
         {
-            if(guest is null)
+            if (guest is null)
             {
                 throw new NullGuestException();
             }
@@ -60,13 +59,13 @@ namespace Foram.Api.Services.Foundations.Guests
 
         };
 
-        private static void Validate(params(dynamic Rule, string Parameter)[] validations)
+        private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
             var InvalidGuestException = new InvalidGuestException();
 
-            foreach((dynamic  rule, string parameter) in validations)
+            foreach ((dynamic rule, string parameter) in validations)
             {
-                if(rule.Condition)
+                if (rule.Condition)
                 {
                     InvalidGuestException.UpsertDataList(
                         key: parameter,
@@ -75,7 +74,7 @@ namespace Foram.Api.Services.Foundations.Guests
             }
 
             InvalidGuestException.ThrowIfContainsErrors();
-        }                   
+        }
 
     }
 }

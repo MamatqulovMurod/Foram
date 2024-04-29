@@ -9,7 +9,6 @@ using Foram.Api.Models.Foundations.Guests;
 using Foram.Api.Models.Foundations.Guests.Exceptions;
 using Microsoft.Data.SqlClient;
 using Moq;
-using Xeptions;
 using Xunit;
 
 namespace Foram.API.Tests.Unit.Services.Foundations.Guests
@@ -22,10 +21,10 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
             //given
             Guest someGuest = CreateRandomGuest();
             SqlException sqlException = GetSqlError();
-            var  failedGuestStorageExceptioin = new FailedGuestStorageExceptioin(sqlException);
-            
+            var failedGuestStorageExceptioin = new FailedGuestStorageExceptioin(sqlException);
+
             var expectedGuestDependencyException =
-                new GuestDependencyException(failedGuestStorageExceptioin); 
+                new GuestDependencyException(failedGuestStorageExceptioin);
 
             this.storageBrokerMock.Setup(broker =>
             broker.InsertGuestAsync(someGuest))
@@ -127,7 +126,7 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
             broker.LogError(It.Is(SameExceptionAs(
                 expectedGuestServiceException))),
                 Times.Once);
-            
+
         }
     }
 }

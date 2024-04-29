@@ -13,6 +13,6 @@ namespace Foram.Api.Models.Foundations.Guests.Exceptions
         public FailedGuestStorageExceptioin(Exception innerException)
             : base(message: "Failed guest storage error occured, contact support",
                   innerException)
-        {}
+        { }
     }
 }

@@ -78,7 +78,7 @@ namespace Foram.Api
 
         private static void AddFoundationServices(IServiceCollection services)
         {
-            services.AddTransient<IGuestService,GuestService>();
+            services.AddTransient<IGuestService, GuestService>();
         }
     }
 

@@ -28,14 +28,14 @@ namespace Foram.Api.Services.Foundations.Guests
         }
 
         //Exception Noice Cancellation
-        public  ValueTask<Guest> AddGuestAsync(Guest guest) =>
-        TryCatch(async() =>
+        public ValueTask<Guest> AddGuestAsync(Guest guest) =>
+        TryCatch(async () =>
         {
-         ValidateGuestOnAdd(guest);
+            ValidateGuestOnAdd(guest);
 
-         return await this.storageBroker.InsertGuestAsync(guest);
+            return await this.storageBroker.InsertGuestAsync(guest);
 
         });
-        
+
     }
 }
