@@ -69,7 +69,7 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
         }
 
 
-        private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
+        private Expression<Func<Xeption,bool>> SameExceptionAs(Xeption expectedException) =>
             actualException => actualException.SameExceptionAs(expectedException);
         
 
