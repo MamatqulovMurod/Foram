@@ -22,61 +22,53 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
         private readonly Mock<ILoggingBroker> loggingBrokerMock;
         private readonly IGuestService guestService;
 
-
         public GuestServiceTests()
         {
             this.storageBrokerMock = new Mock<IStorageBroker>();
             this.loggingBrokerMock = new Mock<ILoggingBroker>();
 
             this.guestService =
-                new GuestService(
-                    storageBroker: this.storageBrokerMock.Object,
-                    loggingBroker: this.loggingBrokerMock.Object);
+                new GuestService(storageBroker: this.storageBrokerMock.Object,
+                loggingBroker: this.loggingBrokerMock.Object);
         }
-
-
-        private static Guest CreateRandomGuest() =>
-            CreateGuestFiller(date: GetRandomDateTimeOffset()).Create();
-
-
-        private static DateTimeOffset GetRandomDateTimeOffset() =>
-            new DateTimeRange(earliestDate: new DateTime()).GetValue();
-
-
-
-        private static int GetRandomNumber() =>
-            new IntRange(min: 2, max: 9).GetValue();
-
-
-        private static string GetRandomString() =>
-            new MnemonicString().GetValue();
-
-
-        private static SqlException GetSqlError() =>
-            (SqlException)FormatterServices.GetSafeUninitializedObject(typeof(SqlException));
-
-
-        private static T GetInvalidEnum<T>()
-        {
-            int randomNumer = GetRandomNumber();
-
-            while (Enum.IsDefined(typeof(T), randomNumer) is true)
-            {
-                randomNumer = GetRandomNumber();
-            }
-
-            return (T)(object)randomNumer;
-        }
-
 
         private Expression<Func<Xeption, bool>> SameExceptionAs(Xeption expectedException) =>
             actualException => actualException.SameExceptionAs(expectedException);
 
+        private static int GetRandomNumber() =>
+            new IntRange(min: 0, max: 9).GetValue();
+
+        private static T GetInvalidEnum<T>()
+        {
+            int randomNumber = GetRandomNumber();
+
+            while (Enum.IsDefined(typeof(T), randomNumber) is true)
+            {
+                randomNumber = GetRandomNumber();
+            }
+
+            return (T)(object)randomNumber;
+        }
+
+        private static SqlException GetSqlError() =>
+            (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
+
+        private static string GetRandomString() =>
+            new MnemonicString().GetValue().ToString();
+
+        private static IQueryable<Guest> CreateRandomGuests() =>
+            CreateGuestFiller(date: GetRandomDateTimeOffset)
+            .Create(count: GetRandomNumber()).AsQueryable<Guest>();
+
+        private static Guest CreateRandomGuest() =>
+            CreateGuestFiller(date: GetRandomDateTimeOffset).Create();
+
+        private static DateTimeOffset GetRandomDateTimeOffset =>
+            new DateTimeRange(earliestDate: new DateTime()).GetValue();
 
         private static Filler<Guest> CreateGuestFiller(DateTimeOffset date)
         {
             var filler = new Filler<Guest>();
-
             filler.Setup()
                 .OnType<DateTimeOffset>().Use(date);
 

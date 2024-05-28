@@ -13,136 +13,117 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
     public partial class GuestServiceTests
     {
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnAddIfGustIsNullAndLogItAsync()
+        public async Task ShouldThrowValidationExceptionOnAddIfGuestIsNullAndLogItAsync()
         {
-            //given
-            Guest NullGuest = null;
-            var nullGuestException = new NullGuestException();
+            // given
+            Guest nullGuest = null;
+            NullGuestException nullGuestException = new();
 
-            var expectedGuestValidationException =
-                new GuestValidationException(nullGuestException);
+            GuestValidationException expectedGuestValidationException =
+            new(nullGuestException);
 
-            //when
+            // when
             ValueTask<Guest> addGuestTask =
-                this.guestService.AddGuestAsync(NullGuest);
+                this.guestService.AddGuestAsync(nullGuest);
 
-            //then
+            // then
             await Assert.ThrowsAsync<GuestValidationException>(() =>
-            addGuestTask.AsTask());
+              addGuestTask.AsTask());
 
             this.loggingBrokerMock.Verify(broker =>
-            broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException))),
-            Times.Once);
+                broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException))),
+                Times.Once());
 
             this.storageBrokerMock.Verify(broker =>
-            broker.InsertGuestAsync(It.IsAny<Guest>()),
-            Times.Never);
+             broker.InsertGuestAsync(It.IsAny<Guest>()), Times.Never);
 
             this.loggingBrokerMock.VerifyNoOtherCalls();
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
-
         [Theory]
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-
-        public async Task ShouldThrowValidationExceptionOnAddIfGuestIsInvalidAndLogItAsync(
-             string invalidText)
+        public async Task ShouldThrowValidationExceptionOnAddIfGuestIsInvalidDataAndLogItAsync(string invalidData)
         {
-            //given
-            var invalidGuest = new Guest
+            // given
+            var invalidGuest = new Guest()
             {
-                FirstName = invalidText
+                FirstName = invalidData
             };
 
-            var invalidGuestException = new InvalidGuestException();
+            InvalidGuestException invalidGuestException = new();
 
-            invalidGuestException.AddData(
-                key: nameof(Guest.Id),
+            invalidGuestException.AddData(key: nameof(Guest.Id),
                 values: "Id is required");
 
+            invalidGuestException.AddData(key: nameof(Guest.FirstName),
+                values: "Text is invalid");
 
-            invalidGuestException.AddData(
-                key: nameof(Guest.FirstName),
-                 values: "Text is required");
+            invalidGuestException.AddData(key: nameof(Guest.LastName),
+               values: "Text is invalid");
 
+            invalidGuestException.AddData(key: nameof(Guest.DateOfBirth),
+              values: "Date is invalid");
 
-            invalidGuestException.AddData(
-                key: nameof(Guest.LastName),
-                values: "Text is required");
+            invalidGuestException.AddData(key: nameof(Guest.Email),
+               values: "Text is invalid");
 
+            invalidGuestException.AddData(key: nameof(Guest.Address),
+                values: "Text is invalid");
 
-            invalidGuestException.AddData(
-                key: nameof(Guest.DateOfBirth),
-                values: "Date is required");
-
-            invalidGuestException.AddData(
-                key: nameof(Guest.Email),
-                values: "Text is required");
-
-            invalidGuestException.AddData(
-                key: nameof(Guest.Address),
-                values: "Text is required");
-
-            var expectedGuestValidationException =
+            var expectedGuestValidationExpected =
                 new GuestValidationException(invalidGuestException);
 
-            //when 
+            // when
             ValueTask<Guest> addGuestTask =
-                this.guestService.AddGuestAsync(invalidGuest);
+               this.guestService.AddGuestAsync(invalidGuest);
 
-            //then
-            await Assert.ThrowsAsync<GuestValidationException>(() =>
-            addGuestTask.AsTask());
+            // then
+            await Assert.ThrowsAsync<GuestValidationException>(() => addGuestTask.AsTask());
 
             this.loggingBrokerMock.Verify(broker =>
-            broker.LogError(It.Is(SameExceptionAs(
-                expectedGuestValidationException))),
-                Times.Once);
+              broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationExpected))),
+              Times.Once());
 
             this.storageBrokerMock.Verify(broker =>
-               broker.InsertGuestAsync(It.IsAny<Guest>()),
-               Times.Never);
+              broker.InsertGuestAsync(It.IsAny<Guest>()),
+              Times.Never);
 
             this.loggingBrokerMock.VerifyNoOtherCalls();
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
-
-
         [Fact]
-        public async Task ShouldThrowValidationExceptionOnAddIfGenderIsInvalidAndLogItAsync()
+        public async Task ShouldThrowExceptionOnAddIfGenderIsInvalidAndLogItAsync()
         {
-            //given
+            // given
             Guest randomGuest = CreateRandomGuest();
             Guest invalidGuest = randomGuest;
+
             invalidGuest.Gender = GetInvalidEnum<GenderType>();
             var invalidGuestException = new InvalidGuestException();
 
-
-            invalidGuestException.AddData(
-                key: nameof(Guest.Gender),
+            invalidGuestException.AddData(key: nameof(Guest.Gender),
                 values: "Value is invalid");
 
             var expectedGuestValidationException =
                 new GuestValidationException(invalidGuestException);
 
-            //when 
-            ValueTask<Guest> adddGuestTask =
+            // when
+            ValueTask<Guest> AddGuestTask =
                 this.guestService.AddGuestAsync(invalidGuest);
 
-            //then
+            // then
             await Assert.ThrowsAsync<GuestValidationException>(() =>
-            adddGuestTask.AsTask());
+               AddGuestTask.AsTask());
 
             this.loggingBrokerMock.Verify(broker =>
-            broker.LogError(It.Is(SameExceptionAs(
-                expectedGuestValidationException))),
-                Times.Once);
+               broker.LogError(It.Is(SameExceptionAs(expectedGuestValidationException))),
+               Times.Once());
 
             this.storageBrokerMock.Verify(broker =>
-            broker.InsertGuestAsync(It.IsAny<Guest>()),
-            Times.Never);
+               broker.InsertGuestAsync(It.IsAny<Guest>()),
+               Times.Never());
 
             this.loggingBrokerMock.VerifyNoOtherCalls();
             this.storageBrokerMock.VerifyNoOtherCalls();

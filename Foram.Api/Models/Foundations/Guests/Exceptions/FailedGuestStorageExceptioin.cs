@@ -8,9 +8,9 @@ using Xeptions;
 
 namespace Foram.Api.Models.Foundations.Guests.Exceptions
 {
-    public class FailedGuestStorageExceptioin : Xeption
+    public class FailedGuestStorageException : Xeption
     {
-        public FailedGuestStorageExceptioin(Exception innerException)
+        public FailedGuestStorageException(Exception innerException)
             : base(message: "Failed guest storage error occured, contact support",
                   innerException)
         { }

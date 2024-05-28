@@ -13,32 +13,32 @@ namespace Foram.API.Tests.Unit.Services.Foundations.Guests
 {
     public partial class GuestServiceTests
     {
-
         [Fact]
-        public async Task ShouldAddGuestAsync()
+        public async Task ShouldModifyGuestAsync()
         {
-            //given
+            // given
             Guest randomGuest = CreateRandomGuest();
             Guest inputGuest = randomGuest;
-            Guest storageGuest = inputGuest;
-            Guest expectedGuest = storageGuest.DeepClone();
+            Guest updatedGuest = inputGuest.DeepClone();
+            Guest expectedGuest = inputGuest.DeepClone();
 
             this.storageBrokerMock.Setup(broker =>
-            broker.InsertGuestAsync(inputGuest))
-                .ReturnsAsync(expectedGuest);
-            //when
+                broker.UpdateGuestAsync(inputGuest))
+                .ReturnsAsync(updatedGuest);
+
+            // when
             Guest actualGuest =
-                await this.guestService.AddGuestAsync(inputGuest);
-            //then
+                await this.guestService.ModifyGuestAsync(inputGuest);
+
+            // then
             actualGuest.Should().BeEquivalentTo(expectedGuest);
 
             this.storageBrokerMock.Verify(broker =>
-                broker.InsertGuestAsync(It.IsAny<Guest>()),
-                Times.Once); 
+                broker.UpdateGuestAsync(It.IsAny<Guest>()), Times.Once());
 
             this.storageBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
-
         }
     }
 }
+
